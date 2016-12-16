@@ -1,0 +1,40 @@
+<header id="header" data-sly-use.model="todoapp.js">
+    <h1>${properties.jcr:title}</h1>
+    <input id="new-todo" placeholder="${properties.labelNewItem}" autofocus data-action="${model.addItemAction}"/>
+</header>
+
+<section id="main" data-sly-test="${model.allItems}">
+    <input id="toggle-all" type="checkbox" checked="${!model.activeItems}" data-action="${model.toggleAllAction}"/>
+    <label for="toggle-all">${properties.labelToggleAll}</label>
+    <ul id="todo-list" data-sly-list="${model.displayItems}">
+        <sly data-sly-resource="${item}" data-sly-unwrap/>
+    </ul>
+</section>
+
+<footer id="footer" data-sly-test="${model.allItems}">
+    <span id="todo-count">
+        ${((model.activeItems.length == 1) ? properties.labelCountActive : properties.labelCountActivePlural) @ format=model.activeItems.length, context='html'}
+    </span>
+
+    <ul id="filters">
+        <li>
+            <a class="${model.isAll && 'selected'}" href="${currentPage.path}.html">
+                ${properties.labelSelectAll}
+            </a>
+        </li>
+        <li>
+            <a class="${model.isActive && 'selected'}" href="${currentPage.path}.active.html">
+                ${properties.labelSelectActive}
+            </a>
+        </li>
+        <li>
+            <a class="${model.isCompleted && 'selected'}" href="${currentPage.path}.completed.html">
+                ${properties.labelSelectCompleted}
+            </a>
+        </li>
+    </ul>
+
+    <button id="clear-completed" data-sly-test="${model.completedItems}" data-action="${model.destroyCompletedAction}">
+        ${properties.labelClearCompleted @ format=model.completedItems.length}
+    </button>
+</footer>

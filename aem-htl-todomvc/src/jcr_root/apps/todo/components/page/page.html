@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>${properties.jcr:title}</title>
+        <sly data-sly-call="${clientLib.css @ categories='todo'}" data-sly-unwrap/>
+	</head>
+
+	<body data-sly-use.model="page.js">
+		<section id="todoapp" data-update-path="${model.updatePath}" data-sly-include="todoapp.html"></section>
+
+		<footer id="info">
+			<p>${'Double-click to edit a todo' @ i18n}</p>
+			<p><a href="http://twitter.com/sightlyio">${'Featuring Sightly' @ i18n}</a></p>
+			<p><a href="http://todomvc.com">${'Part of TodoMVC' @ i18n}</a></p>
+		</footer>
+
+        <sly data-sly-call="${clientLib.js @ categories='todo'}" data-sly-unwrap/>
+	</body>
+</html>
